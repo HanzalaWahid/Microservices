@@ -4,6 +4,14 @@ from urllib.parse import urlparse
 import uuid
 from .ai_agent import analyze_code_with_llm
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+
 
 def get_owner_url(url):
     passed_url = urlparse(url)
@@ -37,7 +45,7 @@ def fetch_file_content(repo_url , filepath ,  github_token = None):
 def analyze_pr(repo_url,pr_number,github_token = None):
     task_id = str(uuid.uuid4())
     try:
-        pr_files = fetch_url_files(repo_url , pr_number , github_token= None)
+        pr_files = fetch_url_files(repo_url , pr_number , github_token= GITHUB_TOKEN)
         analysis_results = []
         for file in pr_files:
             file_name  = file['file_name']

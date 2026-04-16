@@ -8,6 +8,7 @@ from celery.result import AsyncResult
 @api_view(['POST'])
 def start_task(request):
     data = request.data
+<<<<<<< HEAD
     repo_url = data.get('repo_url')
     pr_number = data.get('pr_number')
     github_token = data.get('github_token')
@@ -15,6 +16,19 @@ def start_task(request):
 
     return Response({"task_id": task.id ,
                     "status": "Task_started"     })
+=======
+    pr_url = data.get('pr_url')
+    github_token = data.get('github_token')
+
+    if not pr_url:
+        return Response(
+            {"error": "pr_url is required"},
+            status=400,
+        )
+
+    task = analyze_repo_task.delay(pr_url, github_token)
+    return Response({"task_id": task.id, "status": "Task_started"})
+>>>>>>> 47a610d (Initial commit - microservices project)
 
 @api_view(['GET'])
 def task_status_view(request , task_id):

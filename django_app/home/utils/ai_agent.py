@@ -1,30 +1,38 @@
 
 from groq import Groq
 
-key = "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"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+
+key = GROQ_API_KEY
 
 
 def analyze_code_with_llm(file_content , file_name):
     prompt = f""" 
-    Analyze  the follwoing code for:
-    - Code  style and formatting issue 
-    -Potentail Bugs and error
-    - Performance Improvement 
-    - Best Practice
+    Analyze the following code for:
+    - Code style and formatting issues
+    - Potential Bugs and errors
+    - Performance Improvements
+    - Best Practices
         
     
     File: {file_name}
     Content : {file_content}
                 
 
-Provide a detiled JSON output with the structure 
+Provide a detailed JSON output with the structure 
             {{
                 "issue":[
                 {{
                 "type" : "<styling|bugs|performance|best practice>",
                 "line" : "line_number",
                 "description": "<description>",
-                "sugggestion" : "<suggestion>"
+                "suggestion" : "<suggestion>"
                 }}
                 ]
                 }}
@@ -48,8 +56,8 @@ Provide a detiled JSON output with the structure
     print(completion.choices[0].message.content )
 
 
-file_path = r"C:\Users\kk\Desktop\python\Python_microservices\fastapi_app\main.py"  
-with open(file_path, "r", encoding="utf-8") as f:
-    content = f.read()
+# file_path = r"C:\Users\kk\Desktop\python\Python_microservices\fastapi_app\main.py"  
+# with open(file_path, "r", encoding="utf-8") as f:
+#     content = f.read()
 
-print(analyze_code_with_llm(content, file_path))
+# print(analyze_code_with_llm(content, file_path))

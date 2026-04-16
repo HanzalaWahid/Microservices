@@ -1,0 +1,20 @@
+.env
+fastapi_app/.env
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Database
+*.sqlite3
+
+# OS Files
+.DS_Store
+Thumbs.db
